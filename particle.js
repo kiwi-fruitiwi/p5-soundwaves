@@ -4,9 +4,11 @@ class Particle {
         this.vel = new p5.Vector()
         this.acc = new p5.Vector()
         this.phase = phase
-        this.r = 2
+        this.r = 3
 
         this.originalx = this.pos.x
+        this.originaly = this.pos.y
+        this.colorToggle = true
     }
 
     update() {
@@ -22,7 +24,11 @@ class Particle {
         // we want to modify the amplitude of our sine wave to oscillate...
         // like a sine wave. the magnitude of the amplitude should depend on
         // the original x position of our particle
+
         let amp = map(sin(ω*this.originalx), -1, 1, 0, 20)
+
+        // this produces a diagonal wave
+        // let amp = map(sin(ω*(this.originalx+this.originaly)), -1, 1, 0, 20)
 
         // we want our particle to oscillate around a fixed point, i.e. its
         // original position
@@ -30,9 +36,13 @@ class Particle {
     }
 
     show() {
-        stroke(0, 0, 100, 70)
-        strokeWeight(1)
-        fill(0, 0, 100, 40)
+        // stroke(0, 0, 100, 70)
+        // strokeWeight(1)
+        if (this.colorToggle) {
+            fill(map(this.originalx, 0, width, 0, 360), 80, 100)
+        } else fill(0, 0, 100)
+
+        // fill(0, 0, 100, 40)
         circle(this.pos.x, this.pos.y, this.r)
     }
 }

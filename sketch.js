@@ -26,13 +26,15 @@ function preload() {
 function setup() {
     createCanvas(640, 360)
     colorMode(HSB, 360, 100, 100, 100)
+    frameRate(144)
+    noSmooth()
     particles = []
 
     // create a grid of particles!
     let PADDING = 40
     let SPACING = 8
     for (let i=PADDING; i<=width-PADDING; i+=SPACING) {
-        for (let j=height/2-50; j<=height/2+50; j+=SPACING) {
+        for (let j=height/2-40; j<=height/2+40; j+=SPACING) {
             particles.push(new Particle(i, j, 0))
         }
     }
@@ -40,9 +42,13 @@ function setup() {
 
 function draw() {
     background(209, 80, 30)
-
+    // background(0, 0, 10)
     particles.forEach(p => p.update())
     particles.forEach(p => p.show())
 
     // apply sinusoidal motion to each particle in the x direction
+}
+
+function mousePressed() {
+    particles.forEach(p => p.colorToggle = !p.colorToggle)
 }
