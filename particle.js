@@ -38,6 +38,7 @@ class Particle {
     show() {
         // stroke(0, 0, 100, 70)
         // strokeWeight(1)
+        noStroke()
         if (this.colorToggle) {
             fill(map(this.originalx, 0, width, 0, 360), 80, 100)
         } else fill(0, 0, 100)
