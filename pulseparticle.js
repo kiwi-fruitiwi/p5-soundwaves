@@ -12,9 +12,6 @@ class PulseParticle {
     }
 
     update() {
-        this.vel.add(this.acc)
-        this.pos.add(this.vel)
-        this.acc.setMag(0)
 
         // gently oscillate our particle in the x direction
         // this our our period. 100 means 100 pixels on the screen
@@ -36,8 +33,6 @@ class PulseParticle {
     }
 
     show() {
-        // stroke(0, 0, 100, 70)
-        // strokeWeight(1)
         noStroke()
         if (this.colorToggle) {
             fill(map(this.originalx, 0, width, 0, 360), 80, 100)
