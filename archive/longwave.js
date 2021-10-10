@@ -21,7 +21,7 @@ let font
 let particles
 
 function preload() {
-    font = loadFont('fonts/Meiryo-01.ttf')
+    font = loadFont('../fonts/Meiryo-01.ttf')
 }
 
 function setup() {
