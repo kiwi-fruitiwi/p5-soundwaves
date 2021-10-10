@@ -26,13 +26,40 @@ function setup() {
     colorMode(HSB, 360, 100, 100, 100)
     frameRate(144)
 
-    for (let i=0; i<50; i++) {
-        particles.push(new PulseParticle(100+i*10, 100, 0))
+    let row
+
+    // populate rows
+    for (let r=0; r<18; r++) {
+        row = []
+        // this populates an entire row of particles
+        for (let c=0; c<28; c++) {
+            row.push(new PulseParticle(50+c*20, 50+r*15))
+        }
+        // add the freshly formed row to particles array
+        particles.push(row)
     }
+
+
 }
 
 function draw() {
     background(234, 34, 24)
+    particles.forEach(row => {
+        row.forEach(p => p.update())
+    })
 
-    particles.forEach(p => p.show())
+    particles.forEach(row => {
+        row.forEach(p => p.show())
+    })
+}
+
+
+function mousePressed() {
+    // set up a delay in frames for each
+
+    particles.forEach(row => {
+        for (let c=0; c<row.length; c++) {
+            row[c].activate(delay=c*20, amp=20, period=5)
+        }
+    })
 }
