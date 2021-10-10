@@ -17,15 +17,35 @@ coding plans:
 let font
 let particles = []
 let started = false
+let startButton
 
 function preload() {
     font = loadFont('fonts/Meiryo-01.ttf')
 }
 
+
+function start() {
+    if (!started) {
+        started = true
+        particles.forEach(row => {
+            for (let c=0; c<row.length; c++) {
+                row[c].activate(
+                    c*10, // delay based on what column we're in
+                    25, // amplitude
+                    7) // period
+            }
+        })
+    }
+}
+
+
 function setup() {
     createCanvas(640, 360)
     colorMode(HSB, 360, 100, 100, 100)
     frameRate(144)
+    // startButton = createButton('start');
+    // startButton.position(0, 0);
+    // startButton.mousePressed(start);
 
     let row
     let X_OFFSET = 50
@@ -45,9 +65,8 @@ function setup() {
         // add the freshly formed row to particles array
         particles.push(row)
     }
-
-
 }
+
 
 function draw() {
     background(234, 34, 24)
@@ -64,17 +83,7 @@ function draw() {
 function mousePressed() {
     // set up a delay in frames for each
 
-    if (!started) {
-        started = true
-        particles.forEach(row => {
-            for (let c=0; c<row.length; c++) {
-                row[c].activate(
-                    c*10, // delay based on what column we're in
-                    25, // amplitude
-                    7) // period
-            }
-        })
-    }
+    start()
 
     // 10*c, 55, 8 was great and provides overlap. r:18
 }
