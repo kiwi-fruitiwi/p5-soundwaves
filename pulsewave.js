@@ -89,15 +89,18 @@ function draw() {
 function start() {
     if (!started) {
         started = true
-        particles.forEach(row => {
-            for (let c=0; c<row.length; c++) {
+        for (let r=0; r<particles.length; r++) {
+            let row = particles[r]
+            for (let c = 0; c < row.length; c++) {
                 row[c].activate(
-                    c/22, // phase! the ÷20 is from trial and error
+                    // the angles are very small values so our phase must be too
+                    c / 22 + r/66, // phase! the ÷20 is from trial and error
+
                     0, // delay based on what column we're in. c*10
                     25, // amplitude. 25
                     1.2) // period. 7
             }
-        })
+        }
     }
 }
 
