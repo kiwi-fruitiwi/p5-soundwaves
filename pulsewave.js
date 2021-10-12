@@ -9,8 +9,11 @@ and activating each particle as our x counter value goes from 0 to width.
 coding plans:
 .   pulseParticle class, modify and remove vel, acc, etc.
 .   create a particle grid
-    oscillateOnce
-    fire oscillateOnce as an x-value counter increases from 0 to width
+.   oscillateOnce
+.   fire oscillateOnce as an x-value counter increases from 0 to width
+.   longitudinal wave working with delay
+.   add highlighted column + dot marker
+    can we do this with phase changes instead of delays?
 
  */
 
@@ -38,6 +41,8 @@ function start() {
     }
 }
 
+let ROWS = 18
+let COLS = 55
 
 function setup() {
     createCanvas(640, 360)
@@ -47,6 +52,7 @@ function setup() {
     // startButton.position(0, 0);
     // startButton.mousePressed(start);
 
+    // temp variable for populating our 2D array with rows of PulseParticles
     let row
     let X_OFFSET = 50
     let Y_OFFSET = 100
@@ -54,10 +60,10 @@ function setup() {
     let PARTICLE_VERTICAL_SPACING = 10
 
     // populate rows
-    for (let r=0; r<18; r++) {
+    for (let r=0; r<ROWS; r++) {
         row = []
         // this populates an entire row of particles
-        for (let c=0; c<55; c++) {
+        for (let c=0; c<COLS; c++) {
             row.push(new PulseParticle(
                 X_OFFSET+c*PARTICLE_HORIZONTAL_SPACING,
                 Y_OFFSET+r*PARTICLE_VERTICAL_SPACING))
@@ -77,6 +83,18 @@ function draw() {
     particles.forEach(row => {
         row.forEach(p => p.show())
     })
+
+    let lastRow = particles[ROWS-1]
+    // let's draw a marker below the 36th column
+    let x_pos = lastRow[36].pos.x
+    let y_pos = lastRow[36].pos.y
+
+    noStroke()
+    fill(210, 100, 80, 100)
+
+    // 9 pixels below the center of the particle; this is better done with .r
+    circle(x_pos, y_pos+9, 3)
+
 }
 
 
@@ -86,4 +104,9 @@ function mousePressed() {
     start()
 
     // 10*c, 55, 8 was great and provides overlap. r:18
+}
+
+function keyPressed() {
+    if (key === 's')
+        noLoop()
 }

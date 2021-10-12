@@ -66,9 +66,13 @@ class PulseParticle {
         noStroke()
         if (this.rainbowColorToggle) {
             fill(map(this.originalx, 0, width, 0, 360), 80, 100)
-        } else fill(0, 0, 100, 20)
+        } else if (this.originalx > 400 && this.originalx < 420) {
+            // we want to highlight a column to show its movement
+            fill(0, 0, 80, 100)
+        } else {
+            fill(0, 0, 100, 20)
+        }
 
-        // fill(0, 0, 100, 40)
         circle(this.pos.x, this.pos.y, this.r*2)
     }
 }
