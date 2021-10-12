@@ -10,6 +10,7 @@ class PulseParticle {
         // otherwise every particle will move together at the same rate
         this.activated = false
 
+        this.phase = 0
         this.angle = 0
         this.delay = 0
         this.amp = 100
@@ -26,7 +27,7 @@ class PulseParticle {
         // original position
 
         // this is how much our independent variable increases per frame
-        const DELTA = 0.03
+        const DELTA = 0.005
 
         if (this.activated) {
             // our delay allows particles to not move in unison, thus
@@ -37,7 +38,9 @@ class PulseParticle {
                 this.delay -= 1
             } else {
                 // oscillate around our original x coordinate :3
-                this.pos.x = this.originalx + this.amp*sin(ω*this.angle)
+                this.pos.x =
+                    this.originalx +
+                    this.amp*sin(ω*(this.angle-this.phase))
                 this.angle += DELTA
 
                 // this code is here to made it stop after half a period
@@ -54,8 +57,9 @@ class PulseParticle {
 
     // tell this particle to start oscillating with the given amplitude and
     // period, given a delay in frames :D
-    activate(delay, amp, period) {
+    activate(phase, delay, amp, period) {
         this.activated = true
+        this.phase = phase
         this.delay = delay
         this.amp = amp
         this.period = period

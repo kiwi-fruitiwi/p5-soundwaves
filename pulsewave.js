@@ -13,7 +13,10 @@ coding plans:
 .   fire oscillateOnce as an x-value counter increases from 0 to width
 .   longitudinal wave working with delay
 .   add highlighted column + dot marker
-    can we do this with phase changes instead of delays?
+.   can we do this with phase changes instead of delays?
+        yes, but the constants are very different
+        there's probably some math we can do to equate delay with phase though
+
 
  */
 
@@ -24,21 +27,6 @@ let startButton
 
 function preload() {
     font = loadFont('fonts/Meiryo-01.ttf')
-}
-
-
-function start() {
-    if (!started) {
-        started = true
-        particles.forEach(row => {
-            for (let c=0; c<row.length; c++) {
-                row[c].activate(
-                    c*10, // delay based on what column we're in
-                    25, // amplitude
-                    7) // period
-            }
-        })
-    }
 }
 
 let ROWS = 18
@@ -95,6 +83,22 @@ function draw() {
     // 9 pixels below the center of the particle; this is better done with .r
     circle(x_pos, y_pos+9, 3)
 
+}
+
+
+function start() {
+    if (!started) {
+        started = true
+        particles.forEach(row => {
+            for (let c=0; c<row.length; c++) {
+                row[c].activate(
+                    c/22, // phase! the ÷20 is from trial and error
+                    0, // delay based on what column we're in. c*10
+                    25, // amplitude. 25
+                    1.2) // period. 7
+            }
+        })
+    }
 }
 
 
