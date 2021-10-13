@@ -1,4 +1,4 @@
-class PulseParticle {
+class Particle {
     constructor(x, y) {
         this.pos = new p5.Vector(x, y)
         this.r = 3

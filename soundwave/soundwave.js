@@ -26,7 +26,7 @@ let started = false
 let startButton
 
 function preload() {
-    font = loadFont('fonts/Meiryo-01.ttf')
+    font = loadFont('../fonts/Meiryo-01.ttf')
 }
 
 let ROWS = 18
@@ -52,7 +52,7 @@ function setup() {
         row = []
         // this populates an entire row of particles
         for (let c=0; c<COLS; c++) {
-            row.push(new PulseParticle(
+            row.push(new Particle(
                 X_OFFSET+c*PARTICLE_HORIZONTAL_SPACING,
                 Y_OFFSET+r*PARTICLE_VERTICAL_SPACING))
         }
@@ -94,8 +94,7 @@ function start() {
             for (let c = 0; c < row.length; c++) {
                 row[c].activate(
                     // the angles are very small values so our phase must be too
-                    c / 22 + r/66, // phase! the ÷20 is from trial and error
-
+                    c/22 + r/10000, // phase! the ÷20 is from trial and error
                     0, // delay based on what column we're in. c*10
                     25, // amplitude. 25
                     1.2) // period. 7

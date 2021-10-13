@@ -15,6 +15,8 @@ coding plans:
         particle. this is possible because every particle follows the particle
         above and below.
     make a pulse wave by clipping the period at π
+
+    TODO right now this is an incorrect compression wave
  */
 
 let font
